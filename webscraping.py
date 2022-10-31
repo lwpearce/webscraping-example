@@ -10,19 +10,20 @@ import bs4
 #   get the next Page
 
 authors = set()   # make this a set so there will be unique items
+authorsList = []
 quotes = set()
 topTenTags = []
 
 def scrapeSite():
     for a in soup.select("small"):
-        authors.add(a.get_text())  
-
+        authors.add(a.get_text()) 
+   
     for q in soup.select('.text'):
         quotes.add(q.get_text()) 
 
 def print_list(listToPrint):
     for l in listToPrint:
-        print(l)
+        print('- '+l)
 
 def anotherPage(nextTag):
     if len(nextTag) == 0:
@@ -58,9 +59,11 @@ while keepGoing:
         keepGoing = True
         nextPage = next_tag[0].get_attribute_list('href')[0]
 
+authorsList = list(authors)
+authorsList.sort()
 print('List of Authors:')
 print('---------------')
-print_list(authors)
+print_list(authorsList)
 print('\nList of Quotes')
 print('--------------')
 print_list(quotes)
